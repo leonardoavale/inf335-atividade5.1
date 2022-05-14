@@ -14,10 +14,10 @@ pipeline {
 		}
 		post {
 			success {
-				archiveArtifacts 'maven/target/*.jar'
+				archiveArtifacts 'target/*.jar'
 			}
 			always {
-				junit '**/maven/target/surefire-reports/*.xml'
+				junit '**/target/surefire-reports/*.xml'
 			}
 		}
 	}
