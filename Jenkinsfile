@@ -14,23 +14,11 @@ pipeline {
 		}
 		post {
 			success {
-				junit '**/inf335-atividade5/target/surefire-reports/TEST-*.xml'
-				archiveArtifacts 'inf335-atividade5/target/*.jar'
+				junit '**/maven/target/surefire-reports/TEST-*.xml'
+				archiveArtifacts 'maven/target/*.jar'
 			}
 		}
 	}
-	
-	stage ('Test') {
-		steps {
-			echo 'Test'
-		}
-	}
-	
-    stage ('Deploy') {
-		steps {
-			echo 'Deploy'
-		}
-    }
   }
 }
   
