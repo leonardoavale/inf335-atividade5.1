@@ -1,38 +1,22 @@
 pipeline {
   agent any
   stages {
-    stage ('Build') {
+   stage ('Build') {
       steps {
-        try {
-          sh 'make'
-        }
-        catch (exc) {
-          echo 'Something failed during the build, I should sound the klaxons!'
-          throw
-        }
+        sh 'make check'
+		sh "mvn -Dmaven.test.failure.ignore=true clean package"
+        junit 'reports/**/*.xml'
       }
-    }
-    stage ('Test') {
-      steps {
-        try {
-          sh 'make check'
-          junit 'reports/**/*.xml'
-        }
-        catch (exc) {
-          echo 'Something failed during the test, I should sound the klaxons!'
-          throw
-        }
-      }
-    }
+	  post {
+		sucess {
+			junit '**/target/surefire-reports/TEST-*.xml'
+			archiveArtifacts 'target/*.jar'
+		}
+	  }
+	}
     stage ('Deploy') {
       steps {
-        try {
           sh 'make publish'
-        }
-        catch (exc) {
-          echo 'Something failed during the deploy, I should sound the klaxons!'
-          throw
-        }
       }
     }
   }
