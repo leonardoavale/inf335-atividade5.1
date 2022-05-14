@@ -13,7 +13,7 @@ pipeline {
 			junit 'reports/**/*.xml'
 		}
 		post {
-			sucess {
+			success {
 				junit '**/inf335-atividade5/target/surefire-reports/TEST-*.xml'
 				archiveArtifacts 'inf335-atividade5/target/*.jar'
 			}
